@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VoiceCake Theme Bookmarklet</title>
+    <style>
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #2a85ff 0%, #7f5fff 100%);
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .container {
+            background: white;
+            border-radius: 1.5rem;
+            padding: 2rem;
+            box-shadow: 0px 5px 1.5px -4px rgba(8, 8, 8, 0.5), 0px 6px 4px -4px rgba(8, 8, 8, 0.05);
+            max-width: 600px;
+            text-align: center;
+        }
+        
+        .logo {
+            font-size: 2rem;
+            font-weight: 600;
+            color: #2a85ff;
+            margin-bottom: 1rem;
+        }
+        
+        .title {
+            font-size: 1.5rem;
+            font-weight: 500;
+            color: #101010;
+            margin-bottom: 1rem;
+        }
+        
+        .description {
+            color: #727272;
+            margin-bottom: 2rem;
+            line-height: 1.5;
+        }
+        
+        .bookmarklet {
+            background: #2a85ff;
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 0.75rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+            text-decoration: none;
+            display: inline-block;
+            margin: 1rem;
+            font-size: 1rem;
+        }
+        
+        .bookmarklet:hover {
+            background: #1a75ef;
+        }
+        
+        .instructions {
+            background: #f1f1f1;
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            margin-top: 1.5rem;
+            text-align: left;
+        }
+        
+        .instructions h3 {
+            color: #101010;
+            margin-top: 0;
+        }
+        
+        .instructions ol {
+            color: #727272;
+            line-height: 1.6;
+        }
+        
+        .instructions li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .highlight {
+            background: #e2e2e2;
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.25rem;
+            font-weight: 500;
+        }
+        
+        .success {
+            background: #00a656;
+            color: white;
+            padding: 1rem;
+            border-radius: 0.75rem;
+            margin-top: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">🎨 VoiceCake AI</div>
+        <h1 class="title">VoiceCake Theme Bookmarklet</h1>
+        <p class="description">
+            This bookmarklet will apply the VoiceCake theme to Sim AI instantly. No console needed!
+        </p>
+        
+        <a href="javascript:(function(){
+          console.log('🎨 Applying VoiceCake theme to Sim AI...');
+          
+          const voicecakeConfig = {
+            name: 'VoiceCake AI',
+            primaryColor: '#2a85ff',
+            primaryHoverColor: '#1a75ef',
+            secondaryColor: '#00a656',
+            accentColor: '#7f5fff',
+            errorColor: '#ff381c',
+            warningColor: '#ff9d34'
+          };
+
+          function applyVoiceCakeTheme() {
+            document.body.classList.add('voicecake-theme');
+            document.title = document.title.replace('Sim', 'VoiceCake AI');
+            
+            const style = document.createElement('style');
+            style.id = 'voicecake-theme-styles';
+            style.textContent = `
+              .voicecake-theme {
+                --brand-primary: ${voicecakeConfig.primaryColor};
+                --brand-primary-hover: ${voicecakeConfig.primaryHoverColor};
+                --brand-secondary: ${voicecakeConfig.secondaryColor};
+                --brand-accent: ${voicecakeConfig.accentColor};
+                --brand-error: ${voicecakeConfig.errorColor};
+                --brand-warning: ${voicecakeConfig.warningColor};
+              }
+              
+              .voicecake-theme {
+                font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+              }
+              
+              .voicecake-theme button[data-variant='default'],
+              .voicecake-theme .btn-primary,
+              .voicecake-theme button[type='submit'],
+              .voicecake-theme .btn {
+                background-color: ${voicecakeConfig.primaryColor} !important;
+                border-color: ${voicecakeConfig.primaryColor} !important;
+                color: white !important;
+                border-radius: 0.75rem !important;
+                font-weight: 500 !important;
+                transition: all 0.2s ease !important;
+              }
+              
+              .voicecake-theme button[data-variant='default']:hover,
+              .voicecake-theme .btn-primary:hover,
+              .voicecake-theme button[type='submit']:hover,
+              .voicecake-theme .btn:hover {
+                background-color: ${voicecakeConfig.primaryHoverColor} !important;
+                border-color: ${voicecakeConfig.primaryHoverColor} !important;
+                transform: translateY(-1px) !important;
+              }
+              
+              .voicecake-theme .card,
+              .voicecake-theme [class*='card'],
+              .voicecake-theme [class*='Card'] {
+                border-radius: 1.5rem !important;
+                box-shadow: 0px 5px 1.5px -4px rgba(8, 8, 8, 0.5), 0px 6px 4px -4px rgba(8, 8, 8, 0.05) !important;
+                border: 1.5px solid #e2e2e2 !important;
+                background-color: #fdfdfd !important;
+              }
+              
+              .dark .voicecake-theme .card,
+              .dark .voicecake-theme [class*='card'],
+              .dark .voicecake-theme [class*='Card'] {
+                box-shadow: inset 0 0 0 1.5px rgba(229,229,229,0.04), 0px 5px 1.5px -4px rgba(8,8,8,0.5), 0px 6px 4px -4px rgba(8,8,8,0.05) !important;
+                border: 1.5px solid #222222 !important;
+                background-color: #191919 !important;
+              }
+              
+              .voicecake-theme input,
+              .voicecake-theme textarea,
+              .voicecake-theme select {
+                border: 1.5px solid #e2e2e2 !important;
+                border-radius: 0.75rem !important;
+                transition: border-color 0.2s ease !important;
+                font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+              }
+              
+              .voicecake-theme input:focus,
+              .voicecake-theme textarea:focus,
+              .voicecake-theme select:focus {
+                border-color: ${voicecakeConfig.primaryColor} !important;
+                box-shadow: 0 0 0 2px ${voicecakeConfig.primaryColor}20 !important;
+                outline: none !important;
+              }
+              
+              .voicecake-theme a {
+                color: ${voicecakeConfig.primaryColor} !important;
+                transition: color 0.2s ease !important;
+              }
+              
+              .voicecake-theme a:hover {
+                color: ${voicecakeConfig.primaryHoverColor} !important;
+              }
+              
+              .voicecake-theme nav,
+              .voicecake-theme .sidebar,
+              .voicecake-theme [class*='nav'],
+              .voicecake-theme [class*='Nav'] {
+                background-color: #f1f1f1 !important;
+                border-color: #e2e2e2 !important;
+              }
+              
+              .dark .voicecake-theme nav,
+              .dark .voicecake-theme .sidebar,
+              .dark .voicecake-theme [class*='nav'],
+              .dark .voicecake-theme [class*='Nav'] {
+                background-color: #191919 !important;
+                border-color: #222222 !important;
+              }
+              
+              .voicecake-theme .workflow-canvas,
+              .voicecake-theme [class*='canvas'],
+              .voicecake-theme [class*='Canvas'] {
+                background-color: #fdfdfd !important;
+                background-image: radial-gradient(circle at 1px 1px, #f1f1f1 1px, transparent 0) !important;
+                background-size: 20px 20px !important;
+              }
+              
+              .dark .voicecake-theme .workflow-canvas,
+              .dark .voicecake-theme [class*='canvas'],
+              .dark .voicecake-theme [class*='Canvas'] {
+                background-color: #141414 !important;
+                background-image: radial-gradient(circle at 1px 1px, #191919 1px, transparent 0) !important;
+              }
+              
+              .voicecake-theme .workflow-node,
+              .voicecake-theme [class*='node'],
+              .voicecake-theme [class*='Node'] {
+                background-color: #fdfdfd !important;
+                border: 1.5px solid ${voicecakeConfig.primaryColor}30 !important;
+                border-radius: 0.75rem !important;
+                box-shadow: 0px 5px 1.5px -4px rgba(8, 8, 8, 0.5), 0px 6px 4px -4px rgba(8, 8, 8, 0.05) !important;
+                transition: all 0.2s ease !important;
+              }
+              
+              .voicecake-theme .workflow-node:hover,
+              .voicecake-theme [class*='node']:hover,
+              .voicecake-theme [class*='Node']:hover {
+                border-color: ${voicecakeConfig.primaryColor}60 !important;
+                transform: translateY(-2px) !important;
+                box-shadow: 0px 8px 2px -4px rgba(8, 8, 8, 0.6), 0px 12px 6px -4px rgba(8, 8, 8, 0.08) !important;
+              }
+              
+              .dark .voicecake-theme .workflow-node,
+              .dark .voicecake-theme [class*='node'],
+              .dark .voicecake-theme [class*='Node'] {
+                background-color: #191919 !important;
+                border: 1.5px solid ${voicecakeConfig.primaryColor}30 !important;
+                box-shadow: inset 0 0 0 1.5px rgba(229,229,229,0.04), 0px 5px 1.5px -4px rgba(8,8,8,0.5), 0px 6px 4px -4px rgba(8,8,8,0.05) !important;
+              }
+              
+              .voicecake-theme .success,
+              .voicecake-theme .text-success,
+              .voicecake-theme [class*='success'] {
+                color: ${voicecakeConfig.secondaryColor} !important;
+              }
+              
+              .voicecake-theme .error,
+              .voicecake-theme .text-error,
+              .voicecake-theme [class*='error'] {
+                color: ${voicecakeConfig.errorColor} !important;
+              }
+              
+              .voicecake-theme .warning,
+              .voicecake-theme .text-warning,
+              .voicecake-theme [class*='warning'] {
+                color: ${voicecakeConfig.warningColor} !important;
+              }
+              
+              .voicecake-theme .brand-logo,
+              .voicecake-theme .logo,
+              .voicecake-theme [class*='logo'],
+              .voicecake-theme [class*='Logo'] {
+                color: ${voicecakeConfig.primaryColor} !important;
+                font-weight: 600 !important;
+              }
+              
+              .voicecake-theme .breadcrumb,
+              .voicecake-theme [class*='breadcrumb'],
+              .voicecake-theme [class*='Breadcrumb'] {
+                color: #727272 !important;
+              }
+              
+              .voicecake-theme .loading,
+              .voicecake-theme [class*='loading'],
+              .voicecake-theme [class*='Loading'] {
+                color: ${voicecakeConfig.primaryColor} !important;
+              }
+              
+              .voicecake-theme *:focus {
+                outline: 2px solid ${voicecakeConfig.primaryColor} !important;
+                outline-offset: 2px !important;
+              }
+              
+              .voicecake-theme ::-webkit-scrollbar {
+                width: 8px !important;
+                height: 8px !important;
+              }
+              
+              .voicecake-theme ::-webkit-scrollbar-track {
+                background: #f1f1f1 !important;
+                border-radius: 4px !important;
+              }
+              
+              .voicecake-theme ::-webkit-scrollbar-thumb {
+                background: #c1c1c1 !important;
+                border-radius: 4px !important;
+              }
+              
+              .voicecake-theme ::-webkit-scrollbar-thumb:hover {
+                background: #a8a8a8 !important;
+              }
+              
+              .dark .voicecake-theme ::-webkit-scrollbar-track {
+                background: #191919 !important;
+              }
+              
+              .dark .voicecake-theme ::-webkit-scrollbar-thumb {
+                background: #4c4c4c !important;
+              }
+              
+              .dark .voicecake-theme ::-webkit-scrollbar-thumb:hover {
+                background: #727272 !important;
+              }
+            `;
+            
+            const existingStyle = document.getElementById('voicecake-theme-styles');
+            if (existingStyle) {
+              existingStyle.remove();
+            }
+            
+            document.head.appendChild(style);
+            
+            const logoElements = document.querySelectorAll('[data-brand='logo'], .brand-logo, .logo, [class*='logo'], [class*='Logo']');
+            logoElements.forEach(element => {
+              if (element.tagName === 'IMG') {
+                element.src = '/images/voicecake-logo.png';
+                element.alt = voicecakeConfig.name;
+              } else {
+                element.textContent = element.textContent.replace('Sim', 'VoiceCake AI');
+              }
+            });
+
+            const navItems = document.querySelectorAll('nav a, .nav-item, [class*='nav'], [class*='Nav']');
+            navItems.forEach(item => {
+              const text = item.textContent;
+              if (text.includes('Sim')) {
+                item.textContent = text.replace('Sim', 'VoiceCake AI');
+              }
+            });
+
+            const breadcrumbs = document.querySelectorAll('.breadcrumb, [data-breadcrumb], [class*='breadcrumb'], [class*='Breadcrumb']');
+            breadcrumbs.forEach(breadcrumb => {
+              const text = breadcrumb.textContent;
+              if (text.includes('Sim')) {
+                breadcrumb.textContent = text.replace('Sim', 'VoiceCake AI');
+              }
+            });
+            
+            console.log('✅ VoiceCake theme applied successfully!');
+            console.log('🎯 Sim AI now matches VoiceCake design system');
+            console.log('🎨 Colors: Blue (#2a85ff), Green (#00a656), Purple (#7f5fff)');
+            console.log('📝 Typography: Inter font family');
+            console.log('🔘 Components: Rounded corners, VoiceCake shadows');
+          }
+
+          applyVoiceCakeTheme();
+          
+          let currentUrl = location.href;
+          const observer = new MutationObserver(() => {
+            if (location.href !== currentUrl) {
+              currentUrl = location.href;
+              setTimeout(applyVoiceCakeTheme, 100);
+            }
+          });
+
+          observer.observe(document.body, {
+            childList: true,
+            subtree: true
+          });
+
+          window.reapplyVoiceCakeTheme = applyVoiceCakeTheme;
+          
+          console.log('🔄 Theme will automatically re-apply on navigation changes');
+          console.log('💡 Use window.reapplyVoiceCakeTheme() to manually re-apply the theme');
+          
+        })();" class="bookmarklet">
+            🎨 Apply VoiceCake Theme
+        </a>
+        
+        <div class="instructions">
+            <h3>How to Use the Bookmarklet:</h3>
+            <ol>
+                <li><span class="highlight">Drag the button above</span> to your browser's bookmarks bar</li>
+                <li>Go to <span class="highlight">http://localhost:3001</span> (Sim AI)</li>
+                <li>Log in to your Sim AI account</li>
+                <li><span class="highlight">Click the bookmarklet</span> in your bookmarks bar</li>
+                <li>Enjoy your VoiceCake-themed Sim AI! 🎉</li>
+            </ol>
+        </div>
+        
+        <div class="success">
+            <strong>✅ No Console Needed!</strong> This bookmarklet works without opening developer tools or pasting code.
+        </div>
+    </div>
+
+    <script>
+        // Show success message when bookmarklet is created
+        document.querySelector('.bookmarklet').addEventListener('click', function(e) {
+            e.preventDefault();
+            alert('✅ Bookmarklet created! Now drag it to your bookmarks bar and click it on Sim AI.');
+        });
+    </script>
+</body>
+</html>
