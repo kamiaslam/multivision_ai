@@ -1,0 +1,914 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VoiceCake Widget</title>
+    <style>
+        /* Reset and base styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+        }
+
+        /* Widget container */
+        .voicecake-widget {
+            position: fixed;
+            z-index: 999999;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-size: 14px;
+            line-height: 1.4;
+        }
+
+        /* Position classes */
+        .voicecake-widget.bottom-right {
+            bottom: 20px;
+            right: 20px;
+        }
+
+        .voicecake-widget.bottom-left {
+            bottom: 20px;
+            left: 20px;
+        }
+
+        .voicecake-widget.top-right {
+            top: 20px;
+            right: 20px;
+        }
+
+        .voicecake-widget.top-left {
+            top: 20px;
+            left: 20px;
+        }
+
+        /* Widget button */
+        .voicecake-widget-button {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .voicecake-widget-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .voicecake-widget-button:active {
+            transform: scale(0.95);
+        }
+
+        /* Theme styles */
+        .voicecake-widget.light .voicecake-widget-button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .voicecake-widget.dark .voicecake-widget-button {
+            background: linear-gradient(135deg, #2d3748 0%, #4a5568 100%);
+            color: white;
+        }
+
+        /* Status indicator */
+        .voicecake-status-indicator {
+            position: absolute;
+            top: -2px;
+            right: -2px;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            border: 2px solid white;
+            transition: all 0.3s ease;
+        }
+
+        .voicecake-status-indicator.idle {
+            background: #6b7280;
+        }
+
+        .voicecake-status-indicator.connecting {
+            background: #3b82f6;
+            animation: pulse 1.5s infinite;
+        }
+
+        .voicecake-status-indicator.active {
+            background: #10b981;
+            animation: pulse 1.5s infinite;
+        }
+
+        .voicecake-status-indicator.error {
+            background: #ef4444;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        /* Widget panel */
+        .voicecake-widget-panel {
+            position: absolute;
+            bottom: 70px;
+            right: 0;
+            width: 320px;
+            max-height: 500px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+            border: 1px solid #e5e7eb;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+
+        .voicecake-widget.dark .voicecake-widget-panel {
+            background: #1f2937;
+            border-color: #374151;
+            color: white;
+        }
+
+        .voicecake-widget-panel.open {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .voicecake-widget-panel.bottom-left {
+            right: auto;
+            left: 0;
+        }
+
+        .voicecake-widget-panel.top-right {
+            bottom: auto;
+            top: 70px;
+        }
+
+        .voicecake-widget-panel.top-left {
+            bottom: auto;
+            top: 70px;
+            right: auto;
+            left: 0;
+        }
+
+        /* Panel header */
+        .voicecake-panel-header {
+            padding: 16px;
+            border-bottom: 1px solid #e5e7eb;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .voicecake-widget.dark .voicecake-panel-header {
+            border-bottom-color: #374151;
+        }
+
+        .voicecake-panel-title {
+            font-weight: 600;
+            font-size: 16px;
+            color: #111827;
+        }
+
+        .voicecake-widget.dark .voicecake-panel-title {
+            color: white;
+        }
+
+        .voicecake-close-btn {
+            width: 24px;
+            height: 24px;
+            border: none;
+            background: none;
+            cursor: pointer;
+            color: #6b7280;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 4px;
+            transition: all 0.2s ease;
+        }
+
+        .voicecake-close-btn:hover {
+            background: #f3f4f6;
+            color: #374151;
+        }
+
+        .voicecake-widget.dark .voicecake-close-btn:hover {
+            background: #374151;
+            color: white;
+        }
+
+        /* Panel content */
+        .voicecake-panel-content {
+            padding: 16px;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        /* Agent info */
+        .voicecake-agent-info {
+            margin-bottom: 16px;
+        }
+
+        .voicecake-agent-name {
+            font-weight: 600;
+            font-size: 16px;
+            margin-bottom: 4px;
+            color: #111827;
+        }
+
+        .voicecake-widget.dark .voicecake-agent-name {
+            color: white;
+        }
+
+        .voicecake-agent-description {
+            font-size: 14px;
+            color: #6b7280;
+            margin-bottom: 8px;
+        }
+
+        .voicecake-widget.dark .voicecake-agent-description {
+            color: #9ca3af;
+        }
+
+        .voicecake-agent-type {
+            display: inline-block;
+            padding: 2px 8px;
+            background: #f3f4f6;
+            color: #374151;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .voicecake-widget.dark .voicecake-agent-type {
+            background: #374151;
+            color: #d1d5db;
+        }
+
+        /* Controls */
+        .voicecake-controls {
+            margin-bottom: 16px;
+        }
+
+        .voicecake-control-btn {
+            width: 100%;
+            padding: 12px 16px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-size: 14px;
+        }
+
+        .voicecake-control-btn.primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .voicecake-control-btn.primary:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+        }
+
+        .voicecake-control-btn.secondary {
+            background: #f3f4f6;
+            color: #374151;
+            border: 1px solid #d1d5db;
+        }
+
+        .voicecake-widget.dark .voicecake-control-btn.secondary {
+            background: #374151;
+            color: #d1d5db;
+            border-color: #4b5563;
+        }
+
+        .voicecake-control-btn.secondary:hover {
+            background: #e5e7eb;
+        }
+
+        .voicecake-widget.dark .voicecake-control-btn.secondary:hover {
+            background: #4b5563;
+        }
+
+        .voicecake-control-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none !important;
+        }
+
+        /* Status display */
+        .voicecake-status {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 12px;
+            background: #f9fafb;
+            border-radius: 8px;
+            font-size: 13px;
+            margin-bottom: 12px;
+        }
+
+        .voicecake-widget.dark .voicecake-status {
+            background: #374151;
+        }
+
+        .voicecake-status-text {
+            color: #6b7280;
+        }
+
+        .voicecake-widget.dark .voicecake-status-text {
+            color: #9ca3af;
+        }
+
+        /* Transcription */
+        .voicecake-transcription {
+            max-height: 200px;
+            overflow-y: auto;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 12px;
+            background: #f9fafb;
+        }
+
+        .voicecake-widget.dark .voicecake-transcription {
+            background: #374151;
+            border-color: #4b5563;
+        }
+
+        .voicecake-transcription-entry {
+            margin-bottom: 8px;
+            padding: 8px;
+            border-radius: 6px;
+            font-size: 13px;
+        }
+
+        .voicecake-transcription-entry.user {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            margin-left: 20px;
+        }
+
+        .voicecake-transcription-entry.ai {
+            background: #e5e7eb;
+            color: #374151;
+            margin-right: 20px;
+        }
+
+        .voicecake-widget.dark .voicecake-transcription-entry.ai {
+            background: #4b5563;
+            color: #d1d5db;
+        }
+
+        .voicecake-transcription-meta {
+            font-size: 11px;
+            opacity: 0.7;
+            margin-top: 4px;
+        }
+
+        /* Loading spinner */
+        .voicecake-spinner {
+            width: 16px;
+            height: 16px;
+            border: 2px solid #e5e7eb;
+            border-top: 2px solid #667eea;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Error message */
+        .voicecake-error {
+            padding: 12px;
+            background: #fef2f2;
+            border: 1px solid #fecaca;
+            border-radius: 8px;
+            color: #dc2626;
+            font-size: 13px;
+            margin-bottom: 12px;
+        }
+
+        .voicecake-widget.dark .voicecake-error {
+            background: #7f1d1d;
+            border-color: #991b1b;
+            color: #fca5a5;
+        }
+
+        /* Responsive */
+        @media (max-width: 480px) {
+            .voicecake-widget-panel {
+                width: 280px;
+                right: -10px;
+            }
+
+            .voicecake-widget-panel.bottom-left {
+                left: -10px;
+            }
+        }
+
+        /* Hide scrollbar for webkit browsers */
+        .voicecake-panel-content::-webkit-scrollbar,
+        .voicecake-transcription::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        .voicecake-panel-content::-webkit-scrollbar-track,
+        .voicecake-transcription::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .voicecake-panel-content::-webkit-scrollbar-thumb,
+        .voicecake-transcription::-webkit-scrollbar-thumb {
+            background: #d1d5db;
+            border-radius: 2px;
+        }
+
+        .voicecake-widget.dark .voicecake-panel-content::-webkit-scrollbar-thumb,
+        .voicecake-widget.dark .voicecake-transcription::-webkit-scrollbar-thumb {
+            background: #6b7280;
+        }
+    </style>
+</head>
+<body>
+    <!-- Widget will be injected here -->
+    <div id="voicecake-widget-container"></div>
+
+    <script>
+        // VoiceCake Widget Implementation
+        (function() {
+            'use strict';
+
+            // Configuration
+            const CONFIG = {
+                apiBaseUrl: 'https://voicecakedevelop-hrfygverfwe8g4bj.canadacentral-01.azurewebsites.net/api/v1',
+                wsBaseUrl: 'wss://voice-cake-mg8n2q4e.livekit.cloud',
+                humeEndpoint: '/api/v1/hume/ws/inference'
+            };
+
+            // Widget class
+            class VoiceCakeWidget {
+                constructor(options = {}) {
+                    this.agentId = options.agentId;
+                    this.position = options.position || 'bottom-right';
+                    this.theme = options.theme || 'light';
+                    this.isOpen = false;
+                    this.isConnected = false;
+                    this.isLoading = false;
+                    this.agent = null;
+                    this.socket = null;
+                    this.mediaStream = null;
+                    this.mediaRecorder = null;
+                    this.transcription = [];
+                    this.audioQueue = [];
+                    this.isPlaying = false;
+                    this.isUserSpeaking = false;
+                    this.audioContext = null;
+                    this.currentAudioSource = null;
+
+                    this.init();
+                }
+
+                init() {
+                    this.createWidget();
+                    this.fetchAgent();
+                    this.setupEventListeners();
+                }
+
+                createWidget() {
+                    const container = document.getElementById('voicecake-widget-container');
+                    if (!container) return;
+
+                    container.innerHTML = `
+                        <div class="voicecake-widget ${this.theme} ${this.position}">
+                            <button class="voicecake-widget-button" id="voicecake-toggle">
+                                🎤
+                                <div class="voicecake-status-indicator idle" id="voicecake-status"></div>
+                            </button>
+                            <div class="voicecake-widget-panel ${this.position}" id="voicecake-panel">
+                                <div class="voicecake-panel-header">
+                                    <div class="voicecake-panel-title">Voice AI Chat</div>
+                                    <button class="voicecake-close-btn" id="voicecake-close">×</button>
+                                </div>
+                                <div class="voicecake-panel-content" id="voicecake-content">
+                                    <div class="voicecake-loading">
+                                        <div class="voicecake-spinner"></div>
+                                        Loading agent...
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                }
+
+                setupEventListeners() {
+                    const toggleBtn = document.getElementById('voicecake-toggle');
+                    const closeBtn = document.getElementById('voicecake-close');
+
+                    if (toggleBtn) {
+                        toggleBtn.addEventListener('click', () => this.togglePanel());
+                    }
+
+                    if (closeBtn) {
+                        closeBtn.addEventListener('click', () => this.closePanel());
+                    }
+
+                    // Close panel when clicking outside
+                    document.addEventListener('click', (e) => {
+                        const widget = document.querySelector('.voicecake-widget');
+                        if (widget && !widget.contains(e.target) && this.isOpen) {
+                            this.closePanel();
+                        }
+                    });
+                }
+
+                async fetchAgent() {
+                    if (!this.agentId) {
+                        this.showError('Agent ID is required');
+                        return;
+                    }
+
+                    try {
+                        this.setLoading(true);
+                        const response = await fetch(`${CONFIG.apiBaseUrl}/agents/${this.agentId}/public`);
+                        const data = await response.json();
+
+                        if (data.success && data.data) {
+                            this.agent = data.data;
+                            this.renderAgentInfo();
+                        } else {
+                            throw new Error(data.message || 'Failed to fetch agent');
+                        }
+                    } catch (error) {
+                        console.error('Error fetching agent:', error);
+                        this.showError('Failed to load agent: ' + error.message);
+                    } finally {
+                        this.setLoading(false);
+                    }
+                }
+
+                renderAgentInfo() {
+                    const content = document.getElementById('voicecake-content');
+                    if (!content || !this.agent) return;
+
+                    const agentType = this.agent.agent_type || this.agent.type || 'SPEECH';
+                    const typeLabel = agentType === 'TEXT' ? 'Text-To-Speech' : 'Speech-To-Speech';
+
+                    content.innerHTML = `
+                        <div class="voicecake-agent-info">
+                            <div class="voicecake-agent-name">${this.agent.name}</div>
+                            <div class="voicecake-agent-description">${this.agent.description || 'AI Voice Assistant'}</div>
+                            <div class="voicecake-agent-type">${typeLabel}</div>
+                        </div>
+                        <div class="voicecake-controls">
+                            <button class="voicecake-control-btn primary" id="voicecake-start">
+                                <span>🎤</span>
+                                Start Conversation
+                            </button>
+                        </div>
+                        <div class="voicecake-status" id="voicecake-status-display">
+                            <div class="voicecake-status-indicator idle"></div>
+                            <span class="voicecake-status-text">Ready to start</span>
+                        </div>
+                        <div class="voicecake-transcription" id="voicecake-transcription">
+                            <div style="text-align: center; color: #6b7280; padding: 20px;">
+                                Start a conversation to see transcription here
+                            </div>
+                        </div>
+                    `;
+
+                    // Add event listener for start button
+                    const startBtn = document.getElementById('voicecake-start');
+                    if (startBtn) {
+                        startBtn.addEventListener('click', () => this.startInference());
+                    }
+                }
+
+                async startInference() {
+                    if (!this.agentId) {
+                        this.showError('Agent ID is required');
+                        return;
+                    }
+
+                    try {
+                        this.setStatus('connecting');
+                        this.setLoading(true);
+
+                        // Get microphone access
+                        const stream = await navigator.mediaDevices.getUserMedia({
+                            audio: {
+                                channelCount: 1,
+                                sampleRate: 48000,
+                                echoCancellation: true,
+                                noiseSuppression: true
+                            }
+                        });
+
+                        this.mediaStream = stream;
+
+                        // Create WebSocket connection
+                        const wsUrl = `${CONFIG.wsBaseUrl}${CONFIG.humeEndpoint}/${this.agentId}`;
+                        this.socket = new WebSocket(wsUrl);
+
+                        this.socket.onopen = () => {
+                            console.log('WebSocket connected');
+                            this.isConnected = true;
+                            this.setStatus('active');
+                            this.setLoading(false);
+                            this.updateControls();
+                        };
+
+                        this.socket.onmessage = async (event) => {
+                            await this.handleWebSocketMessage(event);
+                        };
+
+                        this.socket.onclose = () => {
+                            console.log('WebSocket closed');
+                            this.isConnected = false;
+                            this.setStatus('idle');
+                            this.updateControls();
+                        };
+
+                        this.socket.onerror = (error) => {
+                            console.error('WebSocket error:', error);
+                            this.setStatus('error');
+                            this.showError('Connection failed');
+                        };
+
+                        // Set up media recorder
+                        this.mediaRecorder = new MediaRecorder(stream, {
+                            mimeType: "audio/webm;codecs=opus"
+                        });
+
+                        this.mediaRecorder.ondataavailable = (event) => {
+                            if (event.data.size > 0 && this.socket && this.socket.readyState === WebSocket.OPEN) {
+                                this.socket.send(event.data);
+                            }
+                        };
+
+                        this.mediaRecorder.start(100);
+
+                    } catch (error) {
+                        console.error('Error starting inference:', error);
+                        this.setStatus('error');
+                        this.showError('Failed to start: ' + error.message);
+                        this.setLoading(false);
+                    }
+                }
+
+                async handleWebSocketMessage(event) {
+                    try {
+                        // Handle binary audio data
+                        if (event.data instanceof Blob) {
+                            this.playAudio(event.data);
+                            return;
+                        }
+
+                        if (event.data instanceof ArrayBuffer) {
+                            const audioBlob = new Blob([event.data], { type: 'audio/webm;codecs=opus' });
+                            this.playAudio(audioBlob);
+                            return;
+                        }
+
+                        // Handle JSON messages
+                        const data = JSON.parse(event.data);
+
+                        if (data.interrupt || data.type === "interruption") {
+                            this.stopCurrentAudio();
+                            return;
+                        }
+
+                        if (data.audio) {
+                            const audioBlob = this.base64ToBlob(data.audio, data.audio_format || 'audio/wav');
+                            if (audioBlob) {
+                                this.playAudio(audioBlob);
+                            }
+                        }
+
+                    } catch (error) {
+                        console.error('Error handling WebSocket message:', error);
+                    }
+                }
+
+                async playAudio(audioBlob) {
+                    try {
+                        if (!this.audioContext) {
+                            this.audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                        }
+
+                        if (this.audioContext.state === 'suspended') {
+                            await this.audioContext.resume();
+                        }
+
+                        const arrayBuffer = await audioBlob.arrayBuffer();
+                        const audioBuffer = await this.audioContext.decodeAudioData(arrayBuffer);
+
+                        const source = this.audioContext.createBufferSource();
+                        source.buffer = audioBuffer;
+                        source.connect(this.audioContext.destination);
+
+                        this.currentAudioSource = source;
+                        source.start(0);
+
+                        source.onended = () => {
+                            this.currentAudioSource = null;
+                            this.isPlaying = false;
+                        };
+
+                        this.isPlaying = true;
+
+                    } catch (error) {
+                        console.error('Error playing audio:', error);
+                    }
+                }
+
+                stopCurrentAudio() {
+                    if (this.currentAudioSource) {
+                        try {
+                            this.currentAudioSource.stop();
+                            this.currentAudioSource = null;
+                        } catch (error) {
+                            console.warn('Error stopping audio:', error);
+                        }
+                    }
+                    this.isPlaying = false;
+                }
+
+                base64ToBlob(base64, mimeType = 'audio/wav') {
+                    try {
+                        const base64Data = base64.replace(/^data:audio\/[^;]+;base64,/, '');
+                        const binaryString = atob(base64Data);
+                        const bytes = new Uint8Array(binaryString.length);
+
+                        for (let i = 0; i < binaryString.length; i++) {
+                            bytes[i] = binaryString.charCodeAt(i);
+                        }
+
+                        return new Blob([bytes], { type: mimeType });
+                    } catch (error) {
+                        console.error('Error converting base64 to blob:', error);
+                        return null;
+                    }
+                }
+
+                stopInference() {
+                    if (this.socket) {
+                        this.socket.close();
+                        this.socket = null;
+                    }
+
+                    if (this.mediaRecorder && this.mediaRecorder.state !== 'inactive') {
+                        this.mediaRecorder.stop();
+                    }
+
+                    if (this.mediaStream) {
+                        this.mediaStream.getTracks().forEach(track => track.stop());
+                        this.mediaStream = null;
+                    }
+
+                    this.stopCurrentAudio();
+                    this.isConnected = false;
+                    this.setStatus('idle');
+                    this.updateControls();
+                }
+
+                updateControls() {
+                    const startBtn = document.getElementById('voicecake-start');
+                    if (!startBtn) return;
+
+                    if (this.isConnected) {
+                        startBtn.innerHTML = '<span>⏹️</span> Stop Conversation';
+                        startBtn.onclick = () => this.stopInference();
+                    } else {
+                        startBtn.innerHTML = '<span>🎤</span> Start Conversation';
+                        startBtn.onclick = () => this.startInference();
+                    }
+                }
+
+                setStatus(status) {
+                    const statusIndicator = document.getElementById('voicecake-status');
+                    const statusDisplay = document.getElementById('voicecake-status-display');
+                    const statusText = statusDisplay?.querySelector('.voicecake-status-text');
+
+                    if (statusIndicator) {
+                        statusIndicator.className = `voicecake-status-indicator ${status}`;
+                    }
+
+                    if (statusText) {
+                        const statusMessages = {
+                            idle: 'Ready to start',
+                            connecting: 'Connecting...',
+                            active: 'Conversation active',
+                            error: 'Connection error'
+                        };
+                        statusText.textContent = statusMessages[status] || 'Unknown status';
+                    }
+                }
+
+                setLoading(loading) {
+                    this.isLoading = loading;
+                    const startBtn = document.getElementById('voicecake-start');
+                    if (startBtn) {
+                        startBtn.disabled = loading;
+                        if (loading) {
+                            startBtn.innerHTML = '<div class="voicecake-spinner"></div> Loading...';
+                        }
+                    }
+                }
+
+                showError(message) {
+                    const content = document.getElementById('voicecake-content');
+                    if (!content) return;
+
+                    const errorDiv = document.createElement('div');
+                    errorDiv.className = 'voicecake-error';
+                    errorDiv.textContent = message;
+
+                    // Remove existing error messages
+                    const existingErrors = content.querySelectorAll('.voicecake-error');
+                    existingErrors.forEach(error => error.remove());
+
+                    // Insert error at the top
+                    content.insertBefore(errorDiv, content.firstChild);
+
+                    // Auto-remove after 5 seconds
+                    setTimeout(() => {
+                        if (errorDiv.parentNode) {
+                            errorDiv.remove();
+                        }
+                    }, 5000);
+                }
+
+                togglePanel() {
+                    const panel = document.getElementById('voicecake-panel');
+                    if (!panel) return;
+
+                    this.isOpen = !this.isOpen;
+                    panel.classList.toggle('open', this.isOpen);
+                }
+
+                closePanel() {
+                    const panel = document.getElementById('voicecake-panel');
+                    if (!panel) return;
+
+                    this.isOpen = false;
+                    panel.classList.remove('open');
+                }
+            }
+
+            // Initialize widget when script loads
+            function initVoiceCakeWidget() {
+                // Get configuration from script tag
+                const script = document.currentScript;
+                const agentId = script?.getAttribute('data-agent-id');
+                const position = script?.getAttribute('data-position') || 'bottom-right';
+                const theme = script?.getAttribute('data-theme') || 'light';
+
+                if (!agentId) {
+                    console.error('VoiceCake Widget: Agent ID is required');
+                    return;
+                }
+
+                // Create widget instance
+                window.voicecakeWidget = new VoiceCakeWidget({
+                    agentId: agentId,
+                    position: position,
+                    theme: theme
+                });
+            }
+
+            // Initialize when DOM is ready
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', initVoiceCakeWidget);
+            } else {
+                initVoiceCakeWidget();
+            }
+
+        })();
+    </script>
+</body>
+</html>

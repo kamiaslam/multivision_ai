@@ -1,0 +1,395 @@
+// VoiceCake Theme Injector for Sim AI
+// This script injects VoiceCake styles directly into the HTML head
+
+const voicecakeStyles = `
+/* VoiceCake Theme Override for Sim AI */
+:root {
+  /* VoiceCake Color System */
+  --background: 0 0% 100% !important;
+  --foreground: 0 0% 6.3% !important;
+  --card: 0 0% 94.5% !important;
+  --card-foreground: 0 0% 6.3% !important;
+  --popover: 0 0% 100% !important;
+  --popover-foreground: 0 0% 6.3% !important;
+  --primary: 214 100% 58% !important;
+  --primary-foreground: 0 0% 100% !important;
+  --secondary: 0 0% 94.5% !important;
+  --secondary-foreground: 0 0% 6.3% !important;
+  --muted: 0 0% 94.5% !important;
+  --muted-foreground: 0 0% 45% !important;
+  --accent: 0 0% 94.5% !important;
+  --accent-foreground: 0 0% 6.3% !important;
+  --destructive: 8 100% 58% !important;
+  --destructive-foreground: 0 0% 100% !important;
+  --border: 0 0% 88.6% !important;
+  --input: 0 0% 88.6% !important;
+  --ring: 214 100% 58% !important;
+  --radius: 0.75rem !important;
+  
+  /* VoiceCake Brand Colors */
+  --brand-primary-hex: #2a85ff !important;
+  --brand-primary-hover-hex: #1a75ef !important;
+  --brand-secondary-hex: #00a656 !important;
+  --brand-accent-hex: #7f5fff !important;
+  --brand-accent-hover-hex: #6f4fef !important;
+  --brand-background-hex: #fdfdfd !important;
+}
+
+/* Global Font Family - VoiceCake Inter Font */
+* {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+}
+
+/* Button Styling - VoiceCake */
+button[data-variant="default"],
+.btn-primary,
+[data-variant="default"],
+button[type="submit"],
+.btn {
+  background-color: #2a85ff !important;
+  border-color: #2a85ff !important;
+  color: white !important;
+  border-radius: 0.75rem !important;
+  font-weight: 500 !important;
+  transition: all 0.2s ease !important;
+}
+
+button[data-variant="default"]:hover,
+.btn-primary:hover,
+[data-variant="default"]:hover,
+button[type="submit"]:hover,
+.btn:hover {
+  background-color: #1a75ef !important;
+  border-color: #1a75ef !important;
+  transform: translateY(-1px) !important;
+}
+
+/* Secondary Buttons - VoiceCake Green */
+button[data-variant="secondary"],
+.btn-secondary {
+  background-color: #00a656 !important;
+  border-color: #00a656 !important;
+  color: white !important;
+}
+
+button[data-variant="secondary"]:hover,
+.btn-secondary:hover {
+  background-color: #009546 !important;
+  border-color: #009546 !important;
+}
+
+/* Card Styling - VoiceCake */
+.card,
+[data-variant="card"],
+[class*="card"],
+[class*="Card"],
+.bg-card {
+  background-color: #f1f1f1 !important;
+  border: 1.5px solid #e2e2e2 !important;
+  border-radius: 1.5rem !important;
+  box-shadow: 0px 5px 1.5px -4px rgba(8, 8, 8, 0.5), 0px 6px 4px -4px rgba(8, 8, 8, 0.05) !important;
+}
+
+/* Input Styling - VoiceCake */
+input,
+textarea,
+select {
+  border-radius: 0.75rem !important;
+  border: 1.5px solid #e2e2e2 !important;
+  transition: border-color 0.2s ease !important;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  border-color: #2a85ff !important;
+  box-shadow: 0 0 0 2px #2a85ff20 !important;
+  outline: none !important;
+}
+
+/* Navigation Styling - VoiceCake */
+nav,
+.nav,
+[role="navigation"],
+.sidebar,
+[class*="nav"],
+[class*="Nav"] {
+  background-color: #f1f1f1 !important;
+  border-color: #e2e2e2 !important;
+}
+
+/* Link Styling - VoiceCake */
+a {
+  color: #2a85ff !important;
+  transition: color 0.2s ease !important;
+}
+
+a:hover {
+  color: #1a75ef !important;
+}
+
+/* Text Colors - VoiceCake */
+.text-muted-foreground,
+.text-muted {
+  color: #727272 !important;
+}
+
+/* Background Colors - VoiceCake */
+.bg-background {
+  background-color: #fdfdfd !important;
+}
+
+.bg-card {
+  background-color: #f1f1f1 !important;
+}
+
+/* Border Colors - VoiceCake */
+.border {
+  border-color: #e2e2e2 !important;
+}
+
+/* Workflow Canvas Styling - VoiceCake */
+.workflow-canvas,
+[class*="canvas"],
+[class*="Canvas"] {
+  background-color: #fdfdfd !important;
+  background-image: radial-gradient(circle at 1px 1px, #f1f1f1 1px, transparent 0) !important;
+  background-size: 20px 20px !important;
+}
+
+/* Workflow Node Styling - VoiceCake */
+.workflow-node,
+[class*="node"],
+[class*="Node"] {
+  background-color: #fdfdfd !important;
+  border: 1.5px solid #2a85ff30 !important;
+  border-radius: 0.75rem !important;
+  box-shadow: 0px 5px 1.5px -4px rgba(8, 8, 8, 0.5), 0px 6px 4px -4px rgba(8, 8, 8, 0.05) !important;
+  transition: all 0.2s ease !important;
+}
+
+.workflow-node:hover,
+[class*="node"]:hover,
+[class*="Node"]:hover {
+  border-color: #2a85ff60 !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0px 8px 2px -4px rgba(8, 8, 8, 0.6), 0px 12px 6px -4px rgba(8, 8, 8, 0.08) !important;
+}
+
+/* Status Colors - VoiceCake */
+.success,
+.text-success,
+[class*="success"],
+.text-green-600,
+.text-green-500 {
+  color: #00a656 !important;
+}
+
+.error,
+.text-error,
+[class*="error"],
+.text-red-600,
+.text-red-500 {
+  color: #ff381c !important;
+}
+
+.warning,
+.text-warning,
+[class*="warning"] {
+  color: #ff9d34 !important;
+}
+
+/* Logo and Branding - VoiceCake */
+.brand-logo,
+.logo,
+[class*="logo"],
+[class*="Logo"] {
+  color: #2a85ff !important;
+  font-weight: 600 !important;
+}
+
+/* Breadcrumbs - VoiceCake */
+.breadcrumb,
+[class*="breadcrumb"],
+[class*="Breadcrumb"] {
+  color: #727272 !important;
+}
+
+/* Loading States - VoiceCake */
+.loading,
+[class*="loading"],
+[class*="Loading"] {
+  color: #2a85ff !important;
+}
+
+/* Focus States - VoiceCake */
+*:focus {
+  outline: 2px solid #2a85ff !important;
+  outline-offset: 2px !important;
+}
+
+/* Scrollbar Styling - VoiceCake */
+::-webkit-scrollbar {
+  width: 8px !important;
+  height: 8px !important;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1 !important;
+  border-radius: 4px !important;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #c1c1c1 !important;
+  border-radius: 4px !important;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8 !important;
+}
+
+/* Dark Mode Overrides - VoiceCake Dark Theme */
+.dark {
+  --background: 0 0% 6.3% !important;
+  --foreground: 0 0% 94.5% !important;
+  --card: 0 0% 9.8% !important;
+  --card-foreground: 0 0% 94.5% !important;
+  --popover: 0 0% 9.8% !important;
+  --popover-foreground: 0 0% 94.5% !important;
+  --primary: 214 100% 58% !important;
+  --primary-foreground: 0 0% 100% !important;
+  --secondary: 0 0% 13.7% !important;
+  --secondary-foreground: 0 0% 94.5% !important;
+  --muted: 0 0% 13.7% !important;
+  --muted-foreground: 0 0% 45% !important;
+  --accent: 0 0% 13.7% !important;
+  --accent-foreground: 0 0% 94.5% !important;
+  --destructive: 8 100% 58% !important;
+  --destructive-foreground: 0 0% 100% !important;
+  --border: 0 0% 15.3% !important;
+  --input: 0 0% 15.3% !important;
+  --ring: 214 100% 58% !important;
+  --brand-background-hex: #141414 !important;
+  --surface-elevated: #191919 !important;
+}
+
+.dark .card,
+.dark [data-variant="card"],
+.dark [class*="card"],
+.dark [class*="Card"],
+.dark .bg-card {
+  box-shadow: inset 0 0 0 1.5px rgba(229,229,229,0.04), 0px 5px 1.5px -4px rgba(8,8,8,0.5), 0px 6px 4px -4px rgba(8,8,8,0.05) !important;
+  border: 1.5px solid #222222 !important;
+  background-color: #191919 !important;
+}
+
+.dark nav,
+.dark .nav,
+.dark [role="navigation"],
+.dark .sidebar,
+.dark [class*="nav"],
+.dark [class*="Nav"] {
+  background-color: #191919 !important;
+  border-color: #222222 !important;
+}
+
+.dark .workflow-canvas,
+.dark [class*="canvas"],
+.dark [class*="Canvas"] {
+  background-color: #141414 !important;
+  background-image: radial-gradient(circle at 1px 1px, #191919 1px, transparent 0) !important;
+}
+
+.dark .workflow-node,
+.dark [class*="node"],
+.dark [class*="Node"] {
+  background-color: #191919 !important;
+  border: 1.5px solid #2a85ff30 !important;
+  box-shadow: inset 0 0 0 1.5px rgba(229,229,229,0.04), 0px 5px 1.5px -4px rgba(8,8,8,0.5), 0px 6px 4px -4px rgba(8,8,8,0.05) !important;
+}
+
+.dark input,
+.dark textarea,
+.dark select {
+  border: 1.5px solid #222222 !important;
+}
+
+.dark ::-webkit-scrollbar-track {
+  background: #191919 !important;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: #4c4c4c !important;
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: #727272 !important;
+}
+
+/* Override any remaining Sim AI specific styles */
+[style*="purple"],
+[style*="#701ffc"],
+[style*="#802fff"] {
+  color: #2a85ff !important;
+  background-color: #2a85ff !important;
+  border-color: #2a85ff !important;
+}
+`;
+
+// Function to inject styles
+function injectVoiceCakeStyles() {
+  // Remove existing VoiceCake styles if present
+  const existingStyle = document.getElementById('voicecake-theme-styles');
+  if (existingStyle) {
+    existingStyle.remove();
+  }
+
+  // Create and inject new styles
+  const style = document.createElement('style');
+  style.id = 'voicecake-theme-styles';
+  style.textContent = voicecakeStyles;
+  document.head.appendChild(style);
+
+  // Update page title
+  document.title = document.title.replace('Sim', 'VoiceCake AI');
+
+  // Update branding elements
+  const logoElements = document.querySelectorAll('[data-brand="logo"], .brand-logo, .logo, h1, .text-xl, .text-2xl');
+  logoElements.forEach(element => {
+    if (element.textContent && element.textContent.includes('Sim')) {
+      element.textContent = element.textContent.replace('Sim', 'VoiceCake AI');
+      element.style.color = '#2a85ff';
+    }
+  });
+
+  // Add VoiceCake class to body
+  document.body.classList.add('voicecake-theme');
+
+  console.log('🎨 VoiceCake theme injected successfully!');
+}
+
+// Inject styles when DOM is ready
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', injectVoiceCakeStyles);
+} else {
+  injectVoiceCakeStyles();
+}
+
+// Re-inject on navigation changes (for SPA)
+let currentUrl = location.href;
+const observer = new MutationObserver(() => {
+  if (location.href !== currentUrl) {
+    currentUrl = location.href;
+    setTimeout(injectVoiceCakeStyles, 100);
+  }
+});
+
+observer.observe(document.body, {
+  childList: true,
+  subtree: true
+});
+
+// Export for manual re-application
+window.reapplyVoiceCakeTheme = injectVoiceCakeStyles;
+

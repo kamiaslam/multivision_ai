@@ -1,0 +1,271 @@
+/* VoiceCake Theme for Sim AI */
+/* This file should be served and linked to Sim AI for consistent branding */
+
+:root {
+  /* VoiceCake Color System */
+  --voicecake-shade-01: #141414;
+  --voicecake-shade-02: #101010;
+  --voicecake-shade-03: #191919;
+  --voicecake-shade-04: #222222;
+  --voicecake-shade-05: #4c4c4c;
+  --voicecake-shade-06: #727272;
+  --voicecake-shade-07: #7b7b7b;
+  --voicecake-shade-08: #e2e2e2;
+  --voicecake-shade-09: #f1f1f1;
+  --voicecake-shade-10: #fdfdfd;
+  
+  --voicecake-primary-01: #2a85ff;
+  --voicecake-primary-02: #00a656;
+  --voicecake-primary-03: #ff381c;
+  --voicecake-primary-04: #7f5fff;
+  --voicecake-primary-05: #ff9d34;
+  
+  --voicecake-secondary-01: #ffbc99;
+  --voicecake-secondary-02: #cabdff;
+  --voicecake-secondary-03: #b1e5fc;
+  --voicecake-secondary-04: #b5e4ca;
+  --voicecake-secondary-05: #ffd88d;
+}
+
+/* Light Mode Theme Override */
+.light {
+  /* Core Colors - VoiceCake Light */
+  --background: 0 0% 100%;
+  --foreground: 0 0% 6.3%; /* VoiceCake shade-02 equivalent */
+  
+  /* Card Colors */
+  --card: 0 0% 94.5%; /* VoiceCake shade-09 */
+  --card-foreground: 0 0% 6.3%;
+  
+  /* Popover Colors */
+  --popover: 0 0% 100%;
+  --popover-foreground: 0 0% 6.3%;
+  
+  /* Primary Colors - VoiceCake Blue */
+  --primary: 214 100% 58%; /* VoiceCake primary-01 #2a85ff */
+  --primary-foreground: 0 0% 100%;
+  
+  /* Secondary Colors */
+  --secondary: 0 0% 94.5%; /* VoiceCake shade-09 */
+  --secondary-foreground: 0 0% 6.3%;
+  
+  /* Muted Colors */
+  --muted: 0 0% 94.5%; /* VoiceCake shade-09 */
+  --muted-foreground: 0 0% 45%; /* VoiceCake shade-06 */
+  
+  /* Accent Colors */
+  --accent: 0 0% 94.5%; /* VoiceCake shade-09 */
+  --accent-foreground: 0 0% 6.3%;
+  
+  /* Destructive Colors - VoiceCake Red */
+  --destructive: 8 100% 58%; /* VoiceCake primary-03 #ff381c */
+  --destructive-foreground: 0 0% 100%;
+  
+  /* Border & Input Colors */
+  --border: 0 0% 88.6%; /* VoiceCake shade-08 */
+  --input: 0 0% 88.6%;
+  --ring: 214 100% 58%; /* VoiceCake primary-01 */
+  
+  /* Brand Colors - VoiceCake Theme */
+  --brand-primary-hex: #2a85ff; /* VoiceCake primary-01 */
+  --brand-primary-hover-hex: #1a75ef; /* Darker blue */
+  --brand-secondary-hex: #00a656; /* VoiceCake primary-02 */
+  --brand-accent-hex: #7f5fff; /* VoiceCake primary-04 */
+  --brand-accent-hover-hex: #6f4fef; /* Darker purple */
+  --brand-background-hex: #fdfdfd; /* VoiceCake shade-10 */
+  
+  /* Workflow Colors */
+  --workflow-background: 0 0% 100%;
+  --workflow-dots: 0 0% 94.5%; /* VoiceCake shade-09 */
+  --card-background: 0 0% 94.5%;
+  --card-border: 0 0% 88.6%; /* VoiceCake shade-08 */
+  --card-text: 0 0% 6.3%;
+  --card-hover: 0 0% 96.1%;
+}
+
+/* Dark Mode Theme Override */
+.dark {
+  /* Core Colors - VoiceCake Dark */
+  --background: 0 0% 6.3%; /* VoiceCake shade-02 */
+  --foreground: 0 0% 94.5%; /* VoiceCake shade-09 */
+  
+  /* Card Colors */
+  --card: 0 0% 9.8%; /* VoiceCake shade-03 */
+  --card-foreground: 0 0% 94.5%;
+  
+  /* Popover Colors */
+  --popover: 0 0% 9.8%;
+  --popover-foreground: 0 0% 94.5%;
+  
+  /* Primary Colors - VoiceCake Blue */
+  --primary: 214 100% 58%; /* VoiceCake primary-01 */
+  --primary-foreground: 0 0% 100%;
+  
+  /* Secondary Colors */
+  --secondary: 0 0% 13.7%; /* VoiceCake shade-04 */
+  --secondary-foreground: 0 0% 94.5%;
+  
+  /* Muted Colors */
+  --muted: 0 0% 13.7%; /* VoiceCake shade-04 */
+  --muted-foreground: 0 0% 45%; /* VoiceCake shade-06 */
+  
+  /* Accent Colors */
+  --accent: 0 0% 13.7%; /* VoiceCake shade-04 */
+  --accent-foreground: 0 0% 94.5%;
+  
+  /* Destructive Colors - VoiceCake Red */
+  --destructive: 8 100% 58%; /* VoiceCake primary-03 */
+  --destructive-foreground: 0 0% 100%;
+  
+  /* Border & Input Colors */
+  --border: 0 0% 15.3%; /* VoiceCake shade-04 */
+  --input: 0 0% 15.3%;
+  --ring: 214 100% 58%; /* VoiceCake primary-01 */
+  
+  /* Brand Colors - VoiceCake Theme */
+  --brand-primary-hex: #2a85ff; /* VoiceCake primary-01 */
+  --brand-primary-hover-hex: #1a75ef; /* Darker blue */
+  --brand-secondary-hex: #00a656; /* VoiceCake primary-02 */
+  --brand-accent-hex: #7f5fff; /* VoiceCake primary-04 */
+  --brand-accent-hover-hex: #6f4fef; /* Darker purple */
+  --brand-background-hex: #141414; /* VoiceCake shade-01 */
+  
+  /* Workflow Colors */
+  --workflow-background: 0 0% 6.3%; /* VoiceCake shade-02 */
+  --workflow-dots: 0 0% 9.8%; /* VoiceCake shade-03 */
+  --card-background: 0 0% 9.8%;
+  --card-border: 0 0% 15.3%; /* VoiceCake shade-04 */
+  --card-text: 0 0% 94.5%;
+  --card-hover: 0 0% 13.7%; /* VoiceCake shade-04 */
+}
+
+/* Custom VoiceCake Component Styles */
+.voicecake-theme {
+  /* Typography */
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  
+  /* Button Styles */
+  --btn-primary-bg: #2a85ff;
+  --btn-primary-hover: #1a75ef;
+  --btn-primary-text: #ffffff;
+  
+  /* Card Styles */
+  --card-shadow: 0px 5px 1.5px -4px rgba(8, 8, 8, 0.5), 0px 6px 4px -4px rgba(8, 8, 8, 0.05);
+  --card-border-radius: 1.5rem; /* VoiceCake rounded-4xl */
+  
+  /* Input Styles */
+  --input-border: 1.5px solid #e2e2e2; /* VoiceCake shade-08 */
+  --input-focus-border: 1.5px solid #2a85ff; /* VoiceCake primary-01 */
+  
+  /* Navigation Styles */
+  --nav-bg: #f1f1f1; /* VoiceCake shade-09 */
+  --nav-text: #101010; /* VoiceCake shade-02 */
+  --nav-hover: #e2e2e2; /* VoiceCake shade-08 */
+}
+
+/* Dark mode overrides */
+.dark .voicecake-theme {
+  --btn-primary-bg: #2a85ff;
+  --btn-primary-hover: #1a75ef;
+  --btn-primary-text: #ffffff;
+  
+  --card-shadow: inset 0 0 0 1.5px rgba(229,229,229,0.04), 0px 5px 1.5px -4px rgba(8,8,8,0.5), 0px 6px 4px -4px rgba(8,8,8,0.05);
+  
+  --input-border: 1.5px solid #222222; /* VoiceCake shade-04 */
+  --input-focus-border: 1.5px solid #2a85ff; /* VoiceCake primary-01 */
+  
+  --nav-bg: #191919; /* VoiceCake shade-03 */
+  --nav-text: #f1f1f1; /* VoiceCake shade-09 */
+  --nav-hover: #222222; /* VoiceCake shade-04 */
+}
+
+/* Apply VoiceCake styling to Sim AI components */
+.voicecake-theme button[data-variant="default"] {
+  background-color: var(--btn-primary-bg);
+  color: var(--btn-primary-text);
+  border-radius: 0.75rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.voicecake-theme button[data-variant="default"]:hover {
+  background-color: var(--btn-primary-hover);
+}
+
+.voicecake-theme .card {
+  background-color: hsl(var(--card));
+  border: 1.5px solid hsl(var(--border));
+  border-radius: var(--card-border-radius);
+  box-shadow: var(--card-shadow);
+}
+
+.voicecake-theme input {
+  border: var(--input-border);
+  border-radius: 0.75rem;
+  transition: border-color 0.2s ease;
+}
+
+.voicecake-theme input:focus {
+  border-color: var(--input-focus-border);
+  outline: none;
+}
+
+/* Workflow canvas styling */
+.voicecake-theme .workflow-canvas {
+  background-color: hsl(var(--workflow-background));
+  background-image: radial-gradient(circle at 1px 1px, hsl(var(--workflow-dots)) 1px, transparent 0);
+  background-size: 20px 20px;
+}
+
+/* Node styling */
+.voicecake-theme .workflow-node {
+  background-color: hsl(var(--card-background));
+  border: 1.5px solid hsl(var(--card-border));
+  border-radius: 0.75rem;
+  box-shadow: var(--card-shadow);
+}
+
+.voicecake-theme .workflow-node:hover {
+  background-color: hsl(var(--card-hover));
+}
+
+/* Navigation styling */
+.voicecake-theme nav {
+  background-color: var(--nav-bg);
+  border-bottom: 1.5px solid hsl(var(--border));
+}
+
+.voicecake-theme nav a {
+  color: var(--nav-text);
+  transition: background-color 0.2s ease;
+}
+
+.voicecake-theme nav a:hover {
+  background-color: var(--nav-hover);
+}
+
+/* Sidebar styling */
+.voicecake-theme .sidebar {
+  background-color: var(--nav-bg);
+  border-right: 1.5px solid hsl(var(--border));
+}
+
+/* Logo and branding */
+.voicecake-theme .brand-logo {
+  color: var(--brand-primary-hex);
+  font-weight: 600;
+}
+
+/* Success/Error states */
+.voicecake-theme .success {
+  color: var(--voicecake-primary-02);
+}
+
+.voicecake-theme .error {
+  color: var(--voicecake-primary-03);
+}
+
+.voicecake-theme .warning {
+  color: var(--voicecake-primary-05);
+}
+

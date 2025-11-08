@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VoiceCake Widget Demo</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: white;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2.5rem;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .demo-section {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 30px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        h2 {
+            margin-top: 0;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+        }
+
+        .code-block {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            font-size: 14px;
+            line-height: 1.5;
+            overflow-x: auto;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .highlight {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .feature-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .feature-list li {
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+        }
+
+        .feature-list li:before {
+            content: "✅";
+            margin-right: 10px;
+        }
+
+        .feature-list li:last-child {
+            border-bottom: none;
+        }
+
+        .position-demo {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .position-option {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .theme-demo {
+            display: flex;
+            gap: 20px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+
+        .theme-option {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            min-width: 120px;
+        }
+
+        .theme-option.light {
+            background: white;
+            color: #333;
+        }
+
+        .theme-option.dark {
+            background: #1f2937;
+            color: white;
+        }
+
+        .note {
+            background: rgba(255, 193, 7, 0.2);
+            border: 1px solid rgba(255, 193, 7, 0.3);
+            border-radius: 8px;
+            padding: 15px;
+            margin: 20px 0;
+        }
+
+        .note:before {
+            content: "⚠️ ";
+            font-weight: bold;
+        }
+
+        .success {
+            background: rgba(40, 167, 69, 0.2);
+            border: 1px solid rgba(40, 167, 69, 0.3);
+            border-radius: 8px;
+            padding: 15px;
+            margin: 20px 0;
+        }
+
+        .success:before {
+            content: "✅ ";
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎤 VoiceCake Widget Demo</h1>
+        
+        <div class="demo-section">
+            <h2>🚀 Quick Start</h2>
+            <p>Add the VoiceCake widget to your website with just one script tag:</p>
+            
+            <div class="code-block">
+&lt;script src="https://your-domain.com/voicecake-widget.js" 
+        data-agent-id="<span class="highlight">53</span>" 
+        data-position="<span class="highlight">bottom-right</span>" 
+        data-theme="<span class="highlight">light</span>"&gt;&lt;/script&gt;
+            </div>
+
+            <div class="success">
+                The widget is already loaded on this page! Look for the microphone button in the bottom-right corner.
+            </div>
+        </div>
+
+        <div class="demo-section">
+            <h2>⚙️ Configuration Options</h2>
+            
+            <h3>Agent ID (Required)</h3>
+            <p>The unique identifier for your AI agent:</p>
+            <div class="code-block">data-agent-id="<span class="highlight">53</span>"</div>
+
+            <h3>Position Options</h3>
+            <div class="position-demo">
+                <div class="position-option">
+                    <strong>bottom-right</strong><br>
+                    <small>Default position</small>
+                </div>
+                <div class="position-option">
+                    <strong>bottom-left</strong><br>
+                    <small>Left side of screen</small>
+                </div>
+                <div class="position-option">
+                    <strong>top-right</strong><br>
+                    <small>Top right corner</small>
+                </div>
+                <div class="position-option">
+                    <strong>top-left</strong><br>
+                    <small>Top left corner</small>
+                </div>
+            </div>
+
+            <h3>Theme Options</h3>
+            <div class="theme-demo">
+                <div class="theme-option light">
+                    <strong>light</strong><br>
+                    <small>Default theme</small>
+                </div>
+                <div class="theme-option dark">
+                    <strong>dark</strong><br>
+                    <small>Dark mode</small>
+                </div>
+            </div>
+        </div>
+
+        <div class="demo-section">
+            <h2>✨ Features</h2>
+            <ul class="feature-list">
+                <li>Real-time voice conversation with AI agents</li>
+                <li>Speech-to-Speech and Text-to-Speech support</li>
+                <li>Live transcription of conversations</li>
+                <li>Responsive design for all devices</li>
+                <li>Customizable positioning and themes</li>
+                <li>No external dependencies required</li>
+                <li>Automatic microphone permission handling</li>
+                <li>High-quality audio streaming</li>
+                <li>Error handling and user feedback</li>
+                <li>Easy integration with one script tag</li>
+            </ul>
+        </div>
+
+        <div class="demo-section">
+            <h2>📝 Complete Example</h2>
+            <p>Here's a complete HTML page with the VoiceCake widget:</p>
+            
+            <div class="code-block">
+&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;My Website with Voice AI&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;Welcome to My Website&lt;/h1&gt;
+    &lt;p&gt;This page has a VoiceCake AI assistant!&lt;/p&gt;
+    
+    &lt;!-- VoiceCake Widget --&gt;
+    &lt;script src="https://your-domain.com/voicecake-widget.js" 
+            data-agent-id="53" 
+            data-position="bottom-right" 
+            data-theme="light"&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+            </div>
+        </div>
+
+        <div class="demo-section">
+            <h2>🔧 Advanced Usage</h2>
+            
+            <h3>Accessing the Widget Instance</h3>
+            <p>You can access the widget instance for advanced control:</p>
+            
+            <div class="code-block">
+// Get widget status
+const status = window.voicecakeWidget.getStatus();
+console.log('Widget status:', status);
+
+// Destroy the widget
+window.voicecakeWidget.destroy();
+            </div>
+
+            <h3>Multiple Widgets</h3>
+            <p>You can have multiple widgets on the same page by creating them programmatically:</p>
+            
+            <div class="code-block">
+// Create additional widget instances
+const widget2 = new window.VoiceCakeWidget({
+    agentId: '97',
+    position: 'bottom-left',
+    theme: 'dark'
+});
+            </div>
+        </div>
+
+        <div class="demo-section">
+            <h2>📋 Requirements</h2>
+            <ul class="feature-list">
+                <li>Modern web browser with WebRTC support</li>
+                <li>HTTPS connection (required for microphone access)</li>
+                <li>Valid VoiceCake agent ID</li>
+                <li>Microphone permissions from user</li>
+            </ul>
+
+            <div class="note">
+                <strong>Important:</strong> The widget requires HTTPS to access the microphone. Make sure your website is served over HTTPS in production.
+            </div>
+        </div>
+
+        <div class="demo-section">
+            <h2>🆘 Troubleshooting</h2>
+            
+            <h3>Widget not appearing?</h3>
+            <ul>
+                <li>Check that the script URL is correct</li>
+                <li>Verify the agent ID is valid</li>
+                <li>Check browser console for errors</li>
+            </ul>
+
+            <h3>Microphone not working?</h3>
+            <ul>
+                <li>Ensure HTTPS is enabled</li>
+                <li>Check browser permissions</li>
+                <li>Try refreshing the page</li>
+            </ul>
+
+            <h3>Connection issues?</h3>
+            <ul>
+                <li>Check your internet connection</li>
+                <li>Verify the agent is active</li>
+                <li>Check browser console for WebSocket errors</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- VoiceCake Widget - This is the actual widget being demonstrated -->
+    <script src="/voicecake-widget.js" 
+            data-agent-id="108" 
+            data-position="bottom-right" 
+            data-theme="dark"></script>
+</body>
+</html>

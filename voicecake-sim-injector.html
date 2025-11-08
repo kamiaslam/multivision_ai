@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VoiceCake AI Theme Injector</title>
+    <style>
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #2a85ff 0%, #7f5fff 100%);
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .container {
+            background: white;
+            border-radius: 1.5rem;
+            padding: 2rem;
+            box-shadow: 0px 5px 1.5px -4px rgba(8, 8, 8, 0.5), 0px 6px 4px -4px rgba(8, 8, 8, 0.05);
+            max-width: 500px;
+            text-align: center;
+        }
+        
+        .logo {
+            font-size: 2rem;
+            font-weight: 600;
+            color: #2a85ff;
+            margin-bottom: 1rem;
+        }
+        
+        .title {
+            font-size: 1.5rem;
+            font-weight: 500;
+            color: #101010;
+            margin-bottom: 1rem;
+        }
+        
+        .description {
+            color: #727272;
+            margin-bottom: 2rem;
+            line-height: 1.5;
+        }
+        
+        .button {
+            background: #2a85ff;
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.75rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+            text-decoration: none;
+            display: inline-block;
+            margin: 0.5rem;
+        }
+        
+        .button:hover {
+            background: #1a75ef;
+        }
+        
+        .button.secondary {
+            background: #00a656;
+        }
+        
+        .button.secondary:hover {
+            background: #009546;
+        }
+        
+        .instructions {
+            background: #f1f1f1;
+            border-radius: 0.75rem;
+            padding: 1rem;
+            margin-top: 1rem;
+            text-align: left;
+        }
+        
+        .instructions h3 {
+            color: #101010;
+            margin-top: 0;
+        }
+        
+        .instructions ol {
+            color: #727272;
+            line-height: 1.6;
+        }
+        
+        .instructions code {
+            background: #e2e2e2;
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.25rem;
+            font-family: 'Monaco', 'Menlo', monospace;
+            font-size: 0.875rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">🎨 VoiceCake AI</div>
+        <h1 class="title">Sim AI Theme Injector</h1>
+        <p class="description">
+            This tool helps you apply the VoiceCake theme to Sim AI for a consistent design experience.
+        </p>
+        
+        <a href="http://localhost:3001" class="button" target="_blank">
+            🚀 Open Sim AI
+        </a>
+        
+        <button class="button secondary" onclick="injectTheme()">
+            🎨 Inject VoiceCake Theme
+        </button>
+        
+        <div class="instructions">
+            <h3>How to Apply VoiceCake Theme:</h3>
+            <ol>
+                <li>Click "Open Sim AI" to navigate to Sim AI</li>
+                <li>Log in to your Sim AI account</li>
+                <li>Open browser developer tools (F12)</li>
+                <li>Go to Console tab</li>
+                <li>Paste and run this code:</li>
+                <code id="injectionCode">
+// VoiceCake Theme Injection
+const voicecakeConfig = {
+  primaryColor: '#2a85ff',
+  primaryHoverColor: '#1a75ef',
+  secondaryColor: '#00a656',
+  accentColor: '#7f5fff'
+};
+
+// Apply theme
+document.body.classList.add('voicecake-theme');
+document.title = document.title.replace('Sim', 'VoiceCake AI');
+
+// Create and inject styles
+const style = document.createElement('style');
+style.textContent = `
+  .voicecake-theme {
+    --brand-primary: ${voicecakeConfig.primaryColor};
+    --brand-primary-hover: ${voicecakeConfig.primaryHoverColor};
+  }
+  
+  .voicecake-theme button[data-variant="default"],
+  .voicecake-theme .btn-primary {
+    background-color: ${voicecakeConfig.primaryColor} !important;
+    border-color: ${voicecakeConfig.primaryColor} !important;
+  }
+  
+  .voicecake-theme button[data-variant="default"]:hover,
+  .voicecake-theme .btn-primary:hover {
+    background-color: ${voicecakeConfig.primaryHoverColor} !important;
+  }
+  
+  .voicecake-theme .card {
+    border-radius: 1.5rem !important;
+    box-shadow: 0px 5px 1.5px -4px rgba(8, 8, 8, 0.5), 0px 6px 4px -4px rgba(8, 8, 8, 0.05) !important;
+  }
+  
+  .voicecake-theme {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+  }
+`;
+
+document.head.appendChild(style);
+console.log('🎨 VoiceCake theme applied!');
+                </code>
+            </ol>
+        </div>
+    </div>
+
+    <script>
+        function injectTheme() {
+            // Copy the injection code to clipboard
+            const code = document.getElementById('injectionCode').textContent;
+            navigator.clipboard.writeText(code).then(() => {
+                alert('✅ VoiceCake theme code copied to clipboard!\n\nNow:\n1. Open Sim AI\n2. Open Developer Tools (F12)\n3. Go to Console tab\n4. Paste and run the code');
+            }).catch(() => {
+                alert('Please manually copy the code above and paste it in Sim AI\'s console.');
+            });
+        }
+        
+        // Auto-copy on page load
+        window.addEventListener('load', () => {
+            console.log('🎨 VoiceCake Theme Injector loaded');
+            console.log('📋 Copy the injection code and run it in Sim AI\'s console');
+        });
+    </script>
+</body>
+</html>
+
